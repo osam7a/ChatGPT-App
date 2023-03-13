@@ -3,7 +3,7 @@ import openai as ai
 import customtkinter as ctk
 import threading
 
-ctk.set_appearance_mode("Dark")
+ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("green")
 ai.api_key = open("api_key.txt", "r").readlines()[0]
 
@@ -13,9 +13,13 @@ class ChatGui(ctk.CTk):
         self.geometry("800x500")
         self.create_widgets()
         self.history = []
+        self.iconbitmap("./assets/icon.ico")
 
     def create_widgets(self):
         self.main = ctk.CTkFrame(self)
+
+        self.title = ctk.CTkLabel(self.main, text="ChatGPT App", font=("Arial", 48))
+        self.title.pack()
 
         self.chatlog = ctk.CTkTextbox(self.main, font=("Arial", 20), wrap=tk.WORD)
         self.chatlog.pack(expand=1, fill=tk.BOTH)
@@ -23,7 +27,7 @@ class ChatGui(ctk.CTk):
 
         self.entries = ctk.CTkFrame(self.main)
 
-        self.userentry = ctk.CTkEntry(self.entries, font=("Arial", 20))
+        self.userentry = ctk.CTkEntry(self.entries, font=("Arial", 20), placeholder_text="Type something to the AI...")
         self.userentry.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
         self.userentry.bind("<Return>", self.send_return)
 
